@@ -43,9 +43,19 @@ jobs:
       #      sudo apt install -y texlive texlive-xetex texlive-lang-chinese latexmk wget
       #      python -m pip --no-cache-dir install setuptools wheel
       #      python -m pip --no-cache-dir install pandocfilters Pygments
-      - name: Setup pandoc
-        uses: nikeee/setup-pandoc@master
+      
+      # - name: Setup pandoc
+      #   uses: nikeee/setup-pandoc@master
 
+      - name: Install Pandoc, LaTeX, and required packages
+        run: |
+          wget -q "https://github.com/jgm/pandoc/releases/download/${{ env.pandoc_version }}/pandoc-${{ env.pandoc_version }}-1-amd64.deb"
+          sudo dpkg -i pandoc-${{ env.pandoc_version }}-1-amd64.deb
+          rm -rf pandoc-${{ env.pandoc_version }}-1-amd64.deb
+          python -m pip --no-cache-dir install setuptools wheel
+          python -m pip --no-cache-dir install pandocfilters Pygments
+          sudo apt update
+          sudo apt install -y texlive texlive-xetex texlive-lang-chinese latexmk wget
       - name: Install Fonts
         run: |
           mkdir -p /tmp/adodefont
