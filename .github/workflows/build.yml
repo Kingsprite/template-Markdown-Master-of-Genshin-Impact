@@ -33,16 +33,18 @@ jobs:
       #     wget -q "https://github.com/jgm/pandoc/releases/download/${{ env.pandoc_version }}/pandoc-${{ env.pandoc_version }}-1-amd64.deb"
       #     sudo dpkg -i pandoc-${{ env.pandoc_version }}-1-amd64.deb
       #     rm -rf *.deb
-      - name: Install Pandoc
-        uses: pandoc/pandoc-action@v2
-        with:
-          version: ${{ env.pandoc_version }}
-
-      - name: Install LaTeX and required packages
-        run: |
-           sudo apt install -y texlive texlive-xetex texlive-lang-chinese latexmk wget
-           python -m pip --no-cache-dir install setuptools wheel
-           python -m pip --no-cache-dir install pandocfilters Pygments
+      # - name: Install Pandoc
+      #   uses: pandoc/pandoc-action@v2
+      #   with:
+      #     version: ${{ env.pandoc_version }}
+    
+      # - name: Install LaTeX and required packages
+      #   run: |
+      #      sudo apt install -y texlive texlive-xetex texlive-lang-chinese latexmk wget
+      #      python -m pip --no-cache-dir install setuptools wheel
+      #      python -m pip --no-cache-dir install pandocfilters Pygments
+      - name: Setup pandoc
+        uses: nikeee/setup-pandoc@master
 
       - name: Install Fonts
         run: |
